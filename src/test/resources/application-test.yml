@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:fleettest;MODE=PostgreSQL;DB_CLOSE_DELAY=-1
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    database-platform: org.hibernate.dialect.H2Dialect
+fleet:
+  maintenance:
+    default-interval-km: 10000
+    default-interval-days: 180

@@ -1,0 +1,143 @@
+<mxfile host="app.diagrams.net" modified="2026-09-29T00:00:00.000Z" agent="fleet-management" version="24.0.0" type="device">
+  <diagram id="fleet-er-diagram" name="Filo Yonetimi ER Diyagrami">
+    <mxGraphModel dx="1400" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1650" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- DRIVER -->
+        <mxCell id="tbl_driver" value="drivers" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=1;resizeParent=1;resizeParentMax=0;collapsible=0;marginBottom=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="60" y="80" width="260" height="220" as="geometry" />
+        </mxCell>
+        <mxCell id="d_id" value="PK  id : BIGINT" style="text;align=left;verticalAlign=middle;spacingLeft=8;fontStyle=4;" vertex="1" parent="tbl_driver">
+          <mxGeometry y="30" width="260" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="d_first" value="first_name : VARCHAR(50)" style="text;align=left;verticalAlign=middle;spacingLeft=8;" vertex="1" parent="tbl_driver">
+          <mxGeometry y="56" width="260" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="d_last" value="last_name : VARCHAR(50)" style="text;align=left;verticalAlign=middle;spacingLeft=8;" vertex="1" parent="tbl_driver">
+          <mxGeometry y="82" width="260" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="d_phone" value="phone : VARCHAR(20)" style="text;align=left;verticalAlign=middle;spacingLeft=8;" vertex="1" parent="tbl_driver">
+          <mxGeometry y="108" width="260" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="d_license" value="UQ  license_number : VARCHAR(30)" style="text;align=left;verticalAlign=middle;spacingLeft=8;" vertex="1" parent="tbl_driver">
+          <mxGeometry y="134" width="260" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="d_class" value="license_class : ENUM(B,C,CE,D)" style="text;align=left;verticalAlign=middle;spacingLeft=8;" vertex="1" parent="tbl_driver">
+          <mxGeometry y="160" width="260" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="d_expiry" value="license_expiry_date : DATE" style="text;align=left;verticalAlign=middle;spacingLeft=8;" vertex="1" parent="tbl_driver">
+          <mxGeometry y="186" width="260" height="26" as="geometry" />
+        </mxCell>
+
+        <!-- VEHICLE -->
+        <mxCell id="tbl_vehicle" value="vehicles" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=1;resizeParent=1;resizeParentMax=0;collapsible=0;marginBottom=0;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="60" y="380" width="280" height="340" as="geometry" />
+        </mxCell>
+        <mxCell id="v_id" value="PK  id : BIGINT" style="text;align=left;verticalAlign=middle;spacingLeft=8;fontStyle=4;" vertex="1" parent="tbl_vehicle">
+          <mxGeometry y="30" width="280" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="v_plate" value="UQ  plate : VARCHAR(20)" style="text;align=left;verticalAlign=middle;spacingLeft=8;" vertex="1" parent="tbl_vehicle">
+          <mxGeometry y="56" width="280" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="v_brand" value="brand : VARCHAR(50)" style="text;align=left;verticalAlign=middle;spacingLeft=8;" vertex="1" parent="tbl_vehicle">
+          <mxGeometry y="82" width="280" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="v_model" value="model : VARCHAR(50)" style="text;align=left;verticalAlign=middle;spacingLeft=8;" vertex="1" parent="tbl_vehicle">
+          <mxGeometry y="108" width="280" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="v_year" value="manufacture_year : INT" style="text;align=left;verticalAlign=middle;spacingLeft=8;" vertex="1" parent="tbl_vehicle">
+          <mxGeometry y="134" width="280" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="v_reqclass" value="required_license_class : ENUM" style="text;align=left;verticalAlign=middle;spacingLeft=8;" vertex="1" parent="tbl_vehicle">
+          <mxGeometry y="160" width="280" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="v_km" value="current_km : BIGINT" style="text;align=left;verticalAlign=middle;spacingLeft=8;" vertex="1" parent="tbl_vehicle">
+          <mxGeometry y="186" width="280" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="v_lastkm" value="last_maintenance_km : BIGINT" style="text;align=left;verticalAlign=middle;spacingLeft=8;" vertex="1" parent="tbl_vehicle">
+          <mxGeometry y="212" width="280" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="v_lastdate" value="last_maintenance_date : DATE" style="text;align=left;verticalAlign=middle;spacingLeft=8;" vertex="1" parent="tbl_vehicle">
+          <mxGeometry y="238" width="280" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="v_nextdate" value="next_maintenance_date : DATE" style="text;align=left;verticalAlign=middle;spacingLeft=8;" vertex="1" parent="tbl_vehicle">
+          <mxGeometry y="264" width="280" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="v_status" value="status : ENUM(IN_SERVICE,IN_MAINTENANCE,IDLE)" style="text;align=left;verticalAlign=middle;spacingLeft=8;" vertex="1" parent="tbl_vehicle">
+          <mxGeometry y="290" width="280" height="26" as="geometry" />
+        </mxCell>
+
+        <!-- VEHICLE_ASSIGNMENT -->
+        <mxCell id="tbl_assignment" value="vehicle_assignments" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=1;resizeParent=1;resizeParentMax=0;collapsible=0;marginBottom=0;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="640" y="180" width="280" height="260" as="geometry" />
+        </mxCell>
+        <mxCell id="a_id" value="PK  id : BIGINT" style="text;align=left;verticalAlign=middle;spacingLeft=8;fontStyle=4;" vertex="1" parent="tbl_assignment">
+          <mxGeometry y="30" width="280" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="a_driver" value="FK  driver_id : BIGINT" style="text;align=left;verticalAlign=middle;spacingLeft=8;" vertex="1" parent="tbl_assignment">
+          <mxGeometry y="56" width="280" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="a_vehicle" value="FK  vehicle_id : BIGINT" style="text;align=left;verticalAlign=middle;spacingLeft=8;" vertex="1" parent="tbl_assignment">
+          <mxGeometry y="82" width="280" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="a_start" value="start_date : TIMESTAMP" style="text;align=left;verticalAlign=middle;spacingLeft=8;" vertex="1" parent="tbl_assignment">
+          <mxGeometry y="108" width="280" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="a_end" value="end_date : TIMESTAMP (nullable)" style="text;align=left;verticalAlign=middle;spacingLeft=8;" vertex="1" parent="tbl_assignment">
+          <mxGeometry y="134" width="280" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="a_startkm" value="start_km : BIGINT" style="text;align=left;verticalAlign=middle;spacingLeft=8;" vertex="1" parent="tbl_assignment">
+          <mxGeometry y="160" width="280" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="a_endkm" value="end_km : BIGINT (nullable)" style="text;align=left;verticalAlign=middle;spacingLeft=8;" vertex="1" parent="tbl_assignment">
+          <mxGeometry y="186" width="280" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="a_status" value="status : ENUM(ACTIVE,COMPLETED)" style="text;align=left;verticalAlign=middle;spacingLeft=8;" vertex="1" parent="tbl_assignment">
+          <mxGeometry y="212" width="280" height="26" as="geometry" />
+        </mxCell>
+
+        <!-- MAINTENANCE_LOG -->
+        <mxCell id="tbl_maintenance" value="maintenance_logs" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=1;resizeParent=1;resizeParentMax=0;collapsible=0;marginBottom=0;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="640" y="520" width="280" height="260" as="geometry" />
+        </mxCell>
+        <mxCell id="m_id" value="PK  id : BIGINT" style="text;align=left;verticalAlign=middle;spacingLeft=8;fontStyle=4;" vertex="1" parent="tbl_maintenance">
+          <mxGeometry y="30" width="280" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="m_vehicle" value="FK  vehicle_id : BIGINT" style="text;align=left;verticalAlign=middle;spacingLeft=8;" vertex="1" parent="tbl_maintenance">
+          <mxGeometry y="56" width="280" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="m_type" value="maintenance_type : ENUM" style="text;align=left;verticalAlign=middle;spacingLeft=8;" vertex="1" parent="tbl_maintenance">
+          <mxGeometry y="82" width="280" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="m_date" value="maintenance_date : DATE" style="text;align=left;verticalAlign=middle;spacingLeft=8;" vertex="1" parent="tbl_maintenance">
+          <mxGeometry y="108" width="280" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="m_km" value="km_at_maintenance : BIGINT" style="text;align=left;verticalAlign=middle;spacingLeft=8;" vertex="1" parent="tbl_maintenance">
+          <mxGeometry y="134" width="280" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="m_cost" value="cost : DECIMAL(12,2)" style="text;align=left;verticalAlign=middle;spacingLeft=8;" vertex="1" parent="tbl_maintenance">
+          <mxGeometry y="160" width="280" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="m_desc" value="description : VARCHAR(500)" style="text;align=left;verticalAlign=middle;spacingLeft=8;" vertex="1" parent="tbl_maintenance">
+          <mxGeometry y="186" width="280" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="m_by" value="performed_by : VARCHAR(100)" style="text;align=left;verticalAlign=middle;spacingLeft=8;" vertex="1" parent="tbl_maintenance">
+          <mxGeometry y="212" width="280" height="26" as="geometry" />
+        </mxCell>
+
+        <!-- RELATIONSHIPS -->
+        <mxCell id="rel1" value="1 - N" style="edgeStyle=entityRelationEdgeStyle;fontSize=12;html=1;endArrow=ERmany;startArrow=ERone;rounded=0;" edge="1" parent="1" source="tbl_driver" target="tbl_assignment">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rel2" value="1 - N" style="edgeStyle=entityRelationEdgeStyle;fontSize=12;html=1;endArrow=ERmany;startArrow=ERone;rounded=0;" edge="1" parent="1" source="tbl_vehicle" target="tbl_assignment">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rel3" value="1 - N" style="edgeStyle=entityRelationEdgeStyle;fontSize=12;html=1;endArrow=ERmany;startArrow=ERone;rounded=0;" edge="1" parent="1" source="tbl_vehicle" target="tbl_maintenance">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,0 +1,31 @@
+# Maven
+target/
+
+# IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+.settings/
+.classpath
+.project
+.factorypath
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Ortam / yerel gecersiz kilmalar
+.env
+.env.*
+application-local.yml
+application-local.properties
+docker-compose.override.yml
+
+# Derleme ciktilari
+build/
+out/
