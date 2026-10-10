@@ -1,5 +1,7 @@
 package com.filo.fleet.service.impl;
 
+
+import lombok.extern.slf4j.Slf4j;
 import com.filo.fleet.dto.request.DriverRequest;
 import com.filo.fleet.dto.response.DriverResponse;
 import com.filo.fleet.entity.Driver;
@@ -16,6 +18,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Slf4j
 @Service
 public class DriverServiceImpl implements DriverService {
 
@@ -36,6 +39,7 @@ public class DriverServiceImpl implements DriverService {
     @Override
     @Transactional
     public DriverResponse create(DriverRequest request) {
+        log.info("DriverService operation executed");
         String licenseNumber = request.licenseNumber().trim();
         if (driverRepository.existsByLicenseNumber(licenseNumber)) {
             throw duplicateLicense(licenseNumber);
@@ -49,18 +53,21 @@ public class DriverServiceImpl implements DriverService {
     @Override
     @Transactional(readOnly = true)
     public DriverResponse getById(Long id) {
+        log.info("DriverService operation executed");
         return driverMapper.toResponse(findOrThrow(id));
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<DriverResponse> getAll() {
+        log.info("DriverService operation executed");
         return driverMapper.toResponseList(driverRepository.findAllByOrderByLastNameAscFirstNameAsc());
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<DriverResponse> getAvailable(LicenseClass requiredLicenseClass) {
+        log.info("DriverService operation executed");
         List<Driver> drivers = driverRepository.findAvailableDrivers(LocalDate.now());
         if (requiredLicenseClass == null) {
             return driverMapper.toResponseList(drivers);
@@ -73,6 +80,7 @@ public class DriverServiceImpl implements DriverService {
     @Override
     @Transactional
     public DriverResponse update(Long id, DriverRequest request) {
+        log.info("DriverService operation executed");
         Driver driver = findOrThrow(id);
         String licenseNumber = request.licenseNumber().trim();
         if (driverRepository.existsByLicenseNumberAndIdNot(licenseNumber, id)) {
@@ -89,6 +97,7 @@ public class DriverServiceImpl implements DriverService {
     @Override
     @Transactional
     public void delete(Long id) {
+        log.info("DriverService operation executed");
         Driver driver = findOrThrow(id);
         if (assignmentRepository.existsByDriverId(id)) {
             throw new InvalidOperationException(

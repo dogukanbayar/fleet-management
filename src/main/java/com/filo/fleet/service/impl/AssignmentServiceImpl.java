@@ -1,5 +1,7 @@
 package com.filo.fleet.service.impl;
 
+
+import lombok.extern.slf4j.Slf4j;
 import com.filo.fleet.dto.request.AssignmentCompleteRequest;
 import com.filo.fleet.dto.request.AssignmentRequest;
 import com.filo.fleet.dto.response.AssignmentResponse;
@@ -24,6 +26,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Slf4j
 @Service
 public class AssignmentServiceImpl implements AssignmentService {
 
@@ -49,6 +52,7 @@ public class AssignmentServiceImpl implements AssignmentService {
     @Override
     @Transactional
     public AssignmentResponse assign(AssignmentRequest request) {
+        log.info("AssignmentService operation executed");
         // Kilit sırası her zaman sürücü -> araç (deadlock önleme).
         Driver driver = driverRepository.findWithLockById(request.driverId())
                 .orElseThrow(() -> new ResourceNotFoundException(DRIVER, request.driverId()));
@@ -73,6 +77,7 @@ public class AssignmentServiceImpl implements AssignmentService {
     @Override
     @Transactional
     public AssignmentResponse complete(Long assignmentId, AssignmentCompleteRequest request) {
+        log.info("AssignmentService operation executed");
         VehicleAssignment assignment = assignmentRepository.findWithDetailsById(assignmentId)
                 .orElseThrow(() -> new ResourceNotFoundException(ASSIGNMENT, assignmentId));
         if (assignment.getStatus() != AssignmentStatus.ACTIVE) {
@@ -96,6 +101,7 @@ public class AssignmentServiceImpl implements AssignmentService {
     @Override
     @Transactional(readOnly = true)
     public AssignmentResponse getById(Long id) {
+        log.info("AssignmentService operation executed");
         return assignmentRepository.findWithDetailsById(id)
                 .map(assignmentMapper::toResponse)
                 .orElseThrow(() -> new ResourceNotFoundException(ASSIGNMENT, id));
@@ -104,6 +110,7 @@ public class AssignmentServiceImpl implements AssignmentService {
     @Override
     @Transactional(readOnly = true)
     public List<AssignmentResponse> getAll(AssignmentStatus status) {
+        log.info("AssignmentService operation executed");
         List<VehicleAssignment> assignments = status == null
                 ? assignmentRepository.findAllByOrderByStartDateDesc()
                 : assignmentRepository.findByStatusOrderByStartDateDesc(status);
@@ -113,6 +120,7 @@ public class AssignmentServiceImpl implements AssignmentService {
     @Override
     @Transactional(readOnly = true)
     public List<AssignmentResponse> getByDriver(Long driverId) {
+        log.info("AssignmentService operation executed");
         if (!driverRepository.existsById(driverId)) {
             throw new ResourceNotFoundException(DRIVER, driverId);
         }
@@ -122,6 +130,7 @@ public class AssignmentServiceImpl implements AssignmentService {
     @Override
     @Transactional(readOnly = true)
     public List<AssignmentResponse> getByVehicle(Long vehicleId) {
+        log.info("AssignmentService operation executed");
         if (!vehicleRepository.existsById(vehicleId)) {
             throw new ResourceNotFoundException(VEHICLE, vehicleId);
         }

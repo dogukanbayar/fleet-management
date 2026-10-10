@@ -1,5 +1,7 @@
 package com.filo.fleet.controller;
 
+
+import lombok.extern.slf4j.Slf4j;
 import com.filo.fleet.dto.request.MaintenanceCompleteRequest;
 import com.filo.fleet.dto.response.ErrorResponse;
 import com.filo.fleet.dto.response.MaintenanceLogResponse;
@@ -23,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/v1/vehicles/{vehicleId}/maintenance")
 @Tag(name = "Bakım", description = "Aracı bakıma alma, bakımı tamamlama ve bakım geçmişi")

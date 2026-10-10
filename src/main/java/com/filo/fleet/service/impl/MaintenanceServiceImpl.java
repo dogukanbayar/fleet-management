@@ -1,5 +1,7 @@
 package com.filo.fleet.service.impl;
 
+
+import lombok.extern.slf4j.Slf4j;
 import com.filo.fleet.dto.request.MaintenanceCompleteRequest;
 import com.filo.fleet.dto.response.MaintenanceLogResponse;
 import com.filo.fleet.dto.response.VehicleResponse;
@@ -18,6 +20,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Slf4j
 @Service
 public class MaintenanceServiceImpl implements MaintenanceService {
 
@@ -41,6 +44,7 @@ public class MaintenanceServiceImpl implements MaintenanceService {
     @Override
     @Transactional
     public VehicleResponse startMaintenance(Long vehicleId) {
+        log.info("MaintenanceService operation executed");
         Vehicle vehicle = findLockedOrThrow(vehicleId);
         if (vehicle.getStatus() == VehicleStatus.IN_SERVICE) {
             throw new InvalidOperationException(
@@ -56,6 +60,7 @@ public class MaintenanceServiceImpl implements MaintenanceService {
     @Override
     @Transactional
     public MaintenanceLogResponse completeMaintenance(Long vehicleId, MaintenanceCompleteRequest request) {
+        log.info("MaintenanceService operation executed");
         Vehicle vehicle = findLockedOrThrow(vehicleId);
         if (vehicle.getStatus() != VehicleStatus.IN_MAINTENANCE) {
             throw new InvalidOperationException(
@@ -78,6 +83,7 @@ public class MaintenanceServiceImpl implements MaintenanceService {
     @Override
     @Transactional(readOnly = true)
     public List<MaintenanceLogResponse> getLogs(Long vehicleId) {
+        log.info("MaintenanceService operation executed");
         if (!vehicleRepository.existsById(vehicleId)) {
             throw new ResourceNotFoundException(VEHICLE, vehicleId);
         }
