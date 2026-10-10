@@ -27,6 +27,7 @@ services:
       DB_URL: jdbc:postgresql://postgres:5432/fleetdb
       DB_USERNAME: fleet
       DB_PASSWORD: fleet123
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
     ports:
       - "8080:8080"
 

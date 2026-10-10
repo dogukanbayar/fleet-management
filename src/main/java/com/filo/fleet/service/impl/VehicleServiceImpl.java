@@ -1,5 +1,7 @@
 package com.filo.fleet.service.impl;
 
+
+import lombok.extern.slf4j.Slf4j;
 import com.filo.fleet.dto.request.VehicleRequest;
 import com.filo.fleet.dto.response.VehicleResponse;
 import com.filo.fleet.entity.Vehicle;
@@ -20,6 +22,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Slf4j
 @Service
 public class VehicleServiceImpl implements VehicleService {
 
@@ -46,6 +49,7 @@ public class VehicleServiceImpl implements VehicleService {
     @Override
     @Transactional
     public VehicleResponse create(VehicleRequest request) {
+        log.info("VehicleService operation executed");
         String plate = normalizePlate(request.plate());
         if (vehicleRepository.existsByPlate(plate)) {
             throw duplicatePlate(plate);
@@ -64,12 +68,14 @@ public class VehicleServiceImpl implements VehicleService {
     @Override
     @Transactional(readOnly = true)
     public VehicleResponse getById(Long id) {
+        log.info("VehicleService operation executed");
         return vehicleMapper.toResponse(findOrThrow(id));
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<VehicleResponse> getAll(VehicleStatus status) {
+        log.info("VehicleService operation executed");
         List<Vehicle> vehicles = status == null
                 ? vehicleRepository.findAllByOrderByPlateAsc()
                 : vehicleRepository.findByStatusOrderByPlateAsc(status);
@@ -79,6 +85,7 @@ public class VehicleServiceImpl implements VehicleService {
     @Override
     @Transactional
     public VehicleResponse update(Long id, VehicleRequest request) {
+        log.info("VehicleService operation executed");
         Vehicle vehicle = findOrThrow(id);
         String plate = normalizePlate(request.plate());
         if (vehicleRepository.existsByPlateAndIdNot(plate, id)) {
@@ -95,6 +102,7 @@ public class VehicleServiceImpl implements VehicleService {
     @Override
     @Transactional
     public void delete(Long id) {
+        log.info("VehicleService operation executed");
         Vehicle vehicle = findOrThrow(id);
         if (assignmentRepository.existsByVehicleId(id)) {
             throw new InvalidOperationException("Atama geçmişi bulunan araç silinemez.");
@@ -105,6 +113,7 @@ public class VehicleServiceImpl implements VehicleService {
     @Override
     @Transactional
     public VehicleResponse updateKm(Long id, Long newKm) {
+        log.info("VehicleService operation executed");
         Vehicle vehicle = vehicleRepository.findWithLockById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(VEHICLE, id));
         validateNewKm(vehicle, newKm);
@@ -115,6 +124,7 @@ public class VehicleServiceImpl implements VehicleService {
     @Override
     @Transactional(readOnly = true)
     public List<VehicleResponse> getMaintenanceDue() {
+        log.info("VehicleService operation executed");
         return vehicleMapper.toResponseList(vehicleRepository.findMaintenanceDue(LocalDate.now()));
     }
 

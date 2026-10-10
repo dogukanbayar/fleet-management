@@ -1,5 +1,7 @@
 package com.filo.fleet.controller;
 
+
+import lombok.extern.slf4j.Slf4j;
 import com.filo.fleet.dto.request.AssignmentCompleteRequest;
 import com.filo.fleet.dto.request.AssignmentRequest;
 import com.filo.fleet.dto.response.AssignmentResponse;
@@ -26,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/v1/assignments")
 @Tag(name = "Atamalar", description = "Sürücü - araç atama (görev) kayıtları")
@@ -62,6 +65,7 @@ public class AssignmentController {
                     content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
     })
     public ResponseEntity<AssignmentResponse> assign(@Valid @RequestBody AssignmentRequest request) {
+        log.info("AssignmentController endpoint invoked");
         return ResponseEntity.status(HttpStatus.CREATED).body(assignmentService.assign(request));
     }
 

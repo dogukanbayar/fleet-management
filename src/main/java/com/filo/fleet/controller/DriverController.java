@@ -1,5 +1,7 @@
 package com.filo.fleet.controller;
 
+
+import lombok.extern.slf4j.Slf4j;
 import com.filo.fleet.dto.request.DriverRequest;
 import com.filo.fleet.dto.response.DriverResponse;
 import com.filo.fleet.dto.response.ErrorResponse;
@@ -26,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/v1/drivers")
 @Tag(name = "Sürücüler", description = "Sürücü kayıtlarının yönetimi ve atamaya uygun sürücülerin listelenmesi")
@@ -50,6 +53,7 @@ public class DriverController {
                     content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
     })
     public ResponseEntity<DriverResponse> create(@Valid @RequestBody DriverRequest request) {
+        log.info("DriverController endpoint invoked");
         return ResponseEntity.status(HttpStatus.CREATED).body(driverService.create(request));
     }
 
@@ -57,6 +61,7 @@ public class DriverController {
     @Operation(summary = "Tüm sürücüleri listeler", description = "Soyad ve ada göre sıralı döner.")
     @ApiResponse(responseCode = "200", description = "Sürücü listesi")
     public List<DriverResponse> getAll() {
+        log.info("DriverController endpoint invoked");
         return driverService.getAll();
     }
 

@@ -1,5 +1,7 @@
 package com.filo.fleet.controller;
 
+
+import lombok.extern.slf4j.Slf4j;
 import com.filo.fleet.dto.request.KmUpdateRequest;
 import com.filo.fleet.dto.request.VehicleRequest;
 import com.filo.fleet.dto.response.ErrorResponse;
@@ -28,6 +30,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/v1/vehicles")
 @Tag(name = "Araçlar", description = "Araç filosu, kilometre takibi ve bakım zamanı gelen araçlar")
@@ -53,6 +56,7 @@ public class VehicleController {
                     content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
     })
     public ResponseEntity<VehicleResponse> create(@Valid @RequestBody VehicleRequest request) {
+        log.info("VehicleController endpoint invoked");
         return ResponseEntity.status(HttpStatus.CREATED).body(vehicleService.create(request));
     }
 
@@ -71,6 +75,7 @@ public class VehicleController {
             description = "Son bakımdan bu yana KM aralığı dolan veya bakım tarihi gelen (bakımda olmayan) araçlar.")
     @ApiResponse(responseCode = "200", description = "Bakımı gelen araçlar")
     public List<VehicleResponse> getMaintenanceDue() {
+        log.info("VehicleController endpoint invoked");
         return vehicleService.getMaintenanceDue();
     }
 

@@ -23,9 +23,11 @@ fleet:
     default-interval-km: 10000
     default-interval-days: 180
 
-springdoc:
-  swagger-ui:
-    path: /swagger-ui.html
-    operations-sorter: method
-  api-docs:
-    path: /v3/api-docs
+logging:
+  level:
+    root: INFO
+    com.filo.fleet: INFO
+    org.springframework.web: INFO
+    org.hibernate.SQL: WARN
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"

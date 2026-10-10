@@ -1,5 +1,7 @@
 package com.filo.fleet.exception;
 
+
+import lombok.extern.slf4j.Slf4j;
 import com.filo.fleet.dto.response.ErrorResponse;
 import com.filo.fleet.dto.response.ErrorResponse.FieldValidationError;
 import jakarta.servlet.http.HttpServletRequest;
@@ -24,6 +26,7 @@ import org.springframework.web.servlet.resource.NoResourceFoundException;
  * Tüm hataları {@link ErrorResponse} formatında döndüren merkezi hata yönetimi
  * ({@code @ControllerAdvice} + {@code @ExceptionHandler}).
  */
+@Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -40,12 +43,14 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(ApiException.class)
     public ResponseEntity<ErrorResponse> handleApiException(ApiException ex, HttpServletRequest request) {
+        log.warn("Handled business/validation exception: {}", ex.getMessage());
         return build(ex.getStatus(), ex.getCode(), ex.getMessage(), request, Collections.emptyList());
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> handleValidation(MethodArgumentNotValidException ex,
                                                           HttpServletRequest request) {
+        log.warn("Handled business/validation exception: {}", ex.getMessage());
         List<FieldValidationError> errors = ex.getBindingResult().getFieldErrors().stream()
                 .map(fe -> new FieldValidationError(fe.getField(), fe.getDefaultMessage()))
                 .toList();
@@ -56,6 +61,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ErrorResponse> handleUnreadable(HttpMessageNotReadableException ex,
                                                           HttpServletRequest request) {
+        log.warn("Handled business/validation exception: {}", ex.getMessage());
         return build(HttpStatus.BAD_REQUEST, MALFORMED_REQUEST,
                 "İstek gövdesi okunamadı. JSON biçimini ve alan değerlerini (ör. enum değerleri) kontrol edin.",
                 request, Collections.emptyList());
@@ -64,6 +70,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public ResponseEntity<ErrorResponse> handleTypeMismatch(MethodArgumentTypeMismatchException ex,
                                                             HttpServletRequest request) {
+        log.warn("Handled business/validation exception: {}", ex.getMessage());
         String message = "'" + ex.getName() + "' parametresi için geçersiz değer: " + ex.getValue();
         return build(HttpStatus.BAD_REQUEST, INVALID_PARAMETER, message, request, Collections.emptyList());
     }
@@ -71,6 +78,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public ResponseEntity<ErrorResponse> handleMethodNotSupported(HttpRequestMethodNotSupportedException ex,
                                                                   HttpServletRequest request) {
+        log.warn("Handled business/validation exception: {}", ex.getMessage());
         return build(HttpStatus.METHOD_NOT_ALLOWED, METHOD_NOT_ALLOWED,
                 "Bu uç nokta " + ex.getMethod() + " metodunu desteklemiyor.", request, Collections.emptyList());
     }
@@ -78,6 +86,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(NoResourceFoundException.class)
     public ResponseEntity<ErrorResponse> handleNoResource(NoResourceFoundException ex,
                                                           HttpServletRequest request) {
+        log.warn("Handled business/validation exception: {}", ex.getMessage());
         return build(HttpStatus.NOT_FOUND, ENDPOINT_NOT_FOUND, "İstenen uç nokta bulunamadı.", request,
                 Collections.emptyList());
     }
@@ -85,6 +94,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<ErrorResponse> handleDataIntegrity(DataIntegrityViolationException ex,
                                                              HttpServletRequest request) {
+        log.warn("Handled business/validation exception: {}", ex.getMessage());
         LOGGER.warn("Veri bütünlüğü ihlali: {}", ex.getMostSpecificCause().getMessage());
         return build(HttpStatus.CONFLICT, DATA_CONFLICT,
                 "İşlem, veri bütünlüğü kurallarıyla çakıştı (ör. benzersiz alan tekrarı).", request,
@@ -94,6 +104,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ConcurrencyFailureException.class)
     public ResponseEntity<ErrorResponse> handleConcurrency(ConcurrencyFailureException ex,
                                                            HttpServletRequest request) {
+        log.warn("Handled business/validation exception: {}", ex.getMessage());
         LOGGER.warn("Eşzamanlılık hatası: {}", ex.getMessage());
         return build(HttpStatus.CONFLICT, CONCURRENT_UPDATE,
                 "Kayıt başka bir işlem tarafından kullanılıyor. Lütfen tekrar deneyin.", request,
@@ -102,6 +113,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleGeneric(Exception ex, HttpServletRequest request) {
+        log.warn("Handled business/validation exception: {}", ex.getMessage());
         LOGGER.error("Beklenmeyen hata: {}", request.getRequestURI(), ex);
         return build(HttpStatus.INTERNAL_SERVER_ERROR, INTERNAL_ERROR,
                 "Beklenmeyen bir hata oluştu. Lütfen daha sonra tekrar deneyin.", request,
