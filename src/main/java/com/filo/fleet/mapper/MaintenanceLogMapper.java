@@ -7,7 +7,7 @@ import java.util.List;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface MaintenanceLogMapper {
 
     @Mapping(target = "id", ignore = true)

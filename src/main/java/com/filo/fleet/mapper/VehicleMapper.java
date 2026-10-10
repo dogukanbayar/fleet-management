@@ -12,7 +12,7 @@ import org.mapstruct.MappingTarget;
  * KM ve bakım alanları iş kuralları gerektirdiği için (doğrulama, varsayılan değerler) mapper tarafından
  * doldurulmaz; servis katmanı yönetir.
  */
-@Mapper
+@Mapper(componentModel = "spring")
 public interface VehicleMapper {
 
     @Mapping(target = "id", ignore = true)

@@ -23,22 +23,11 @@ fleet:
     default-interval-km: 10000
     default-interval-days: 180
 
-# Loglama: LOG_LEVEL ortam değişkeniyle değiştirilebilir (TRACE|DEBUG|INFO|WARN|ERROR). Varsayılan INFO.
 logging:
   level:
-    root: ${LOG_LEVEL:INFO}
-
-springdoc:
-  swagger-ui:
-    path: /swagger-ui.html
-    operations-sorter: method
-  api-docs:
-    path: /v3/api-docs
-logging:
-  level:
-    root: ${ROOT_LOG_LEVEL:INFO}
-    com.filo.fleet: ${LOG_LEVEL:INFO}
-    org.springframework.web: ${SPRING_LOG_LEVEL:INFO}
-    org.hibernate.SQL: ${SQL_LOG_LEVEL:WARN}
+    root: INFO
+    com.filo.fleet: INFO
+    org.springframework.web: INFO
+    org.hibernate.SQL: WARN
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
